@@ -1,0 +1,31 @@
+version: "3"
+services:
+  web:
+    image: alpine
+    command: ping 127.0.0.1
+    networks:
+      - frontend
+  middle:
+    image: alpine
+    command: ping 127.0.0.1
+    networks:
+      - frontend
+      - backend
+  db:
+    image: alpine
+    command: ping 127.0.0.1
+    networks:
+      - backend
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
+  backend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.20.0/24
