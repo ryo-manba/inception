@@ -1,29 +1,5 @@
 #!/bin/bash
 
-## TODO: .envにまとめる
-
-# mysqlで作成した設定
-DB_NAME="wordpress"
-DB_USER="sample"
-DB_PASS="password"
-
-# wordpress
-DOMAIN_NAME=rmatsuka.42.fr
-TITLE=inception
-
-WP_USER=rmatsuka
-WP_USER_EMAIL=rmatuska@example.com
-WP_USER_PASSWORD=password
-
-WP_ADMIN=admin
-WP_ADMIN_EMAIL=admin@example.com
-WP_ADMIN_PASSWORD=password
-
-DB_HOST=localhost
-DB_PORT=3306
-
-service mysql start
-
 # Step 1 – Download WordPress
 echo "[INFO] Download WordPress"
 wp core download --locale=ja --allow-root
@@ -33,16 +9,17 @@ wp core download --locale=ja --allow-root
 # mysqladmin -hlocalhost -P3306 -uroot ping
 
 # https://qiita.com/sakito/items/7ddcbfb49edc7a50c6d7
-while ! mysql -h${DB_HOST} -P${DB_PORT} -u${DB_USER}  -p${DB_PASS} ${DB_NAME} --silent; do
+
+while ! mysql -h${WP_DB_HOST} -P${WP_DB_PORT} -u${WP_DB_USER}  -p${WP_DB_PASS} ${WP_DB_NAME} --silent; do
 	echo "[INFO] waiting for database"
 	sleep 1;
 done
 
 	# Step 2 – Generate a config file
 	echo "[INFO] Generate a config file"
-	wp config create --dbname=${DB_NAME} \
-	                 --dbuser=${DB_USER} \
-	                 --dbpass=${DB_PASS} \
+	wp config create --dbname=${WP_DB_NAME} \
+	                 --dbuser=${WP_DB_USER} \
+	                 --dbpass=${WP_DB_PASS} \
 	                 --dbhost=localhost \
 	                 --allow-root
 
@@ -53,7 +30,7 @@ done
 	# Step 4 – Install WordPress
 	echo "[INFO] Install WordPress"
 	wp core install --url=${DOMAIN_NAME} \
-					--title=${TITLE} \
+					--title=${WP_TITLE} \
 					--admin_user=${WP_ADMIN} \
 					--admin_email=${WP_ADMIN_EMAIL} \
 					--admin_password=${WP_ADMIN_PASSWORD} \
