@@ -11,8 +11,8 @@ if [ ! -e '.done' ]; then
 
     echo "[DEBUG] create database"
     mysql -e "CREATE DATABASE ${WP_DB_NAME};"
-    mysql -e "CREATE USER '${WP_DB_USER}'@'localhost' IDENTIFIED BY '${WP_DB_PASS}';"
-    mysql -e "GRANT ALL PRIVILEGES ON ${WP_DB_NAME}.* TO '${WP_DB_USER}'@'localhost';"
+    mysql -e "CREATE USER '${WP_DB_USER}'@'%' IDENTIFIED BY '${WP_DB_PASS}';"
+    mysql -e "GRANT ALL PRIVILEGES ON ${WP_DB_NAME}.* TO '${WP_DB_USER}'@'%';"
     mysql -e "FLUSH PRIVILEGES;"
 
     echo "[DEBUG] shutdown mysql"

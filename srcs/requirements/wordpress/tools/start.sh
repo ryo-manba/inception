@@ -6,10 +6,21 @@ wp core download --locale=ja --allow-root
 
 # mysqlの疎通確認
 # https://gihyo.jp/dev/serial/01/mysql-road-construction-news/0012
+
 # mysqladmin -hlocalhost -P3306 -uroot ping
+
+echo "[DEBUG] start ping"
+mysqladmin -hmariadb -P3306 -uroot ping
+
+if [ $? -eq 0 ]; then
+	echo "[DEBUG] ping success"
+else
+	echo "[DEBUG] ping failed"
+fi
 
 # https://qiita.com/sakito/items/7ddcbfb49edc7a50c6d7
 
+echo "[DEBUG] connecting to ${WP_DB_NAME}"
 while ! mysql -h${WP_DB_HOST} -P${WP_DB_PORT} -u${WP_DB_USER}  -p${WP_DB_PASS} ${WP_DB_NAME} --silent; do
 	echo "[INFO] waiting for database"
 	sleep 1;
@@ -20,7 +31,7 @@ done
 	wp config create --dbname=${WP_DB_NAME} \
 	                 --dbuser=${WP_DB_USER} \
 	                 --dbpass=${WP_DB_PASS} \
-	                 --dbhost=localhost \
+	                 --dbhost=${WP_DB_HOST} \
 	                 --allow-root
 
 	# Step 3 – Create the database
