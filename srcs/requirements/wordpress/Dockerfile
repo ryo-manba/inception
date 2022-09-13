@@ -6,7 +6,7 @@ RUN set -ex
 # debug: vim
 RUN apt-get update; \
     apt-get -y install \
-    mariadb-client; \
+    mariadb-client \
     php \
     php-curl \
     php-dom \
@@ -17,7 +17,7 @@ RUN apt-get update; \
     php-xml \
     php-zip \
     vim \
-    wget \
+    wget; \
     rm -rf /var/lib/apt/lists/*
 
 COPY ./tools/start.sh /usr/local/bin/
