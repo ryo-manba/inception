@@ -1,0 +1,18 @@
+# https://zenn.dev/ajapa/articles/1369a3c0e8085d
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: ./volumes_test_dir
+        target: /volume_dir
+      # - ./volumes_test_dir:/volume_dir
+      #- test-volume:/volume_dir
+
+# volumes:
+#   external-test-volume:
+#     external: true
