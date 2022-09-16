@@ -4,8 +4,7 @@ FROM debian:buster
 RUN set -ex
 
 # debug: vim
-RUN apt-get update; \
-    apt-get -y install \
+RUN apt-get update && apt-get -y install \
     mariadb-client \
     php \
     php-curl \
@@ -27,4 +26,5 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+WORKDIR /var/www/html/
 ENTRYPOINT [ "bash", "/usr/local/bin/start.sh"]
