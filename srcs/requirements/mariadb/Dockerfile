@@ -1,7 +1,6 @@
 FROM debian:buster
 
-RUN apt-get update; \
-    apt-get -y install \
+RUN apt-get update && apt-get -y install \
     mariadb-server \
     vim; \
     rm -rf /var/lib/apt/lists/*

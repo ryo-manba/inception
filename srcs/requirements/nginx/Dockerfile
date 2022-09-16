@@ -6,8 +6,7 @@ RUN set -ex
 # Note:
 #  vim, curlはデバッグ用なので、提出時に削除する
 #  opensslはオレオレ証明書で使う
-RUN apt-get update; \
-    apt-get -y --no-install-recommends install \
+RUN apt-get update && apt-get -y install \
     nginx \
     openssl \
     vim \
