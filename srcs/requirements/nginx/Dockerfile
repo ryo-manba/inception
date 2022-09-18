@@ -6,12 +6,12 @@ RUN set -ex
 # Note:
 #  vim, curlはデバッグ用なので、提出時に削除する
 #  opensslはオレオレ証明書で使う
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && apt-get install -y \
     nginx \
     openssl \
     vim \
-    curl; \
-    rm -rf /var/lib/apt/lists/*
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
 # Note:
 #  sites-avalilableは、ドメインごとの設定ファイル置き場

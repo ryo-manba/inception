@@ -1,9 +1,9 @@
 FROM debian:buster
 
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && apt-get install -y \
     mariadb-server \
-    vim; \
-    rm -rf /var/lib/apt/lists/*
+    vim \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY ./tools/start.sh /usr/local/bin/

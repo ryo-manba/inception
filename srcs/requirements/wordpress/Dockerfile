@@ -4,7 +4,7 @@ FROM debian:buster
 RUN set -ex
 
 # debug: vim
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && apt-get install -y \
     mariadb-client \
     php \
     php-curl \
@@ -16,8 +16,8 @@ RUN apt-get update && apt-get -y install \
     php-xml \
     php-zip \
     vim \
-    wget; \
-    rm -rf /var/lib/apt/lists/*
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY ./tools/start.sh /usr/local/bin/
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
