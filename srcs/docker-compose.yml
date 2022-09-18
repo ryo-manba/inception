@@ -8,8 +8,7 @@ services:
       - wordpress
     ports:
       - 443:443
-    # restart: always
-    restart: 'no'
+    restart: on-failure
     networks:
       - frontend
     volumes:
@@ -22,8 +21,7 @@ services:
       - mariadb
     ports:
       - 9000:9000
-    # restart: always
-    restart: 'no'
+    restart: on-failure
     networks:
       - frontend
       - backend
@@ -49,8 +47,7 @@ services:
     build: requirements/mariadb/
     ports:
       - 3306:3306
-    # restart: always
-    restart: 'no'
+    restart: on-failure
     networks:
       - backend
     environment:
