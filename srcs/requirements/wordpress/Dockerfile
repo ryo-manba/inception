@@ -1,9 +1,5 @@
 FROM debian:buster
 
-# Debug
-RUN set -ex
-
-# debug: vim
 RUN apt-get update && apt-get install -y \
     mariadb-client \
     php \
@@ -15,7 +11,6 @@ RUN apt-get update && apt-get install -y \
     php-mysqlnd \
     php-xml \
     php-zip \
-    vim \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
