@@ -1,25 +1,34 @@
 COMPOSE_PATH := ./srcs/docker-compose.yml
+SRCDIR := ./srcs
 include ./srcs/.env
 
 .PHONY: all
 all: setup
-	docker-compose -f $(COMPOSE_PATH) up --build
+	cd $(SRCDIR) && docker-compose up --build
 
 .PHONY: build
 build:
-	docker-compose -f $(COMPOSE_PATH) build
+	cd $(SRCDIR) && docker-compose build
 
 .PHONY: up
 up:
-	docker-compose -f $(COMPOSE_PATH) up
+	cd $(SRCDIR) && docker-compose up
 
 .PHONY: down
 down:
-	docker-compose -f $(COMPOSE_PATH) down
+	cd $(SRCDIR) && docker-compose down
+
+.PHONY: wordpress
+	cd $(SRCDIR) && docker-compose exec wordpress bash
+
+.PHONY: nginx
+	cd $(SRCDIR) && docker-compose exec nginx bash
+
+.PHONY: mariadb
+	cd $(SRCDIR) && docker-compose exec mariadb bash
 
 .PHONY: clean
 clean: down
-
 
 .PHONY: fclean
 fclean: clean dclean
@@ -38,7 +47,6 @@ dclean:
 	docker volume rm $(shell docker volume ls -q) 2>/dev/null   || :
 	docker network rm $(shell docker network ls -q) 2>/dev/null || :
 
-
 .PHONY: setup
 setup: setup_hosts setup_volume
 
@@ -53,7 +61,6 @@ setup_volume:
 		echo "[INFO] create ${VOLUME_DIR}/wordpress"; \
 		sudo mkdir -p ${VOLUME_DIR}/wordpress ; \
 	fi
-
 
 .PHONY: setup_hosts
 setup_hosts:
