@@ -31,9 +31,9 @@ if ! wp core is-installed --allow-root; then
                     ${WP_USER_EMAIL} \
                    --user_pass=${WP_USER_PASSWORD}
 
-
-# Create directory for sock-file
-mkdir -p /var/run/php
+    # Create directory for sock-file
+    mkdir -p /var/run/php
+fi
 
 echo "[INFO] Wordpress started (port -> 9000)"
 /usr/sbin/php-fpm7.3 --nodaemonize
