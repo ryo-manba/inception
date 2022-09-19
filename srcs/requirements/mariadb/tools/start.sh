@@ -4,7 +4,7 @@ if [ ! -e '.done' ]; then
     echo "[INFO] start mysql initialization."
     mysqld_safe &
 
-    until mysqladmin ping -h --silent; do
+    until mysqladmin ping --silent; do
       echo "[INFO] waiting for mysqld to be connectable..."
       sleep 2
     done
