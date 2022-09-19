@@ -21,7 +21,7 @@ EOF
     echo "[INFO] database created."
     rm -rf $queryfile
 
-    mysqladmin -p ${MYSQL_ROOT_PASS} shutdown
+    mysqladmin -p${MYSQL_ROOT_PASS} shutdown
     touch .done
     echo "[INFO] initial setup is done."
 else
