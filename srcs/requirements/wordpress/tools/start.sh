@@ -1,6 +1,6 @@
 #!/bin/bash
 
-until mysql -h${WP_DB_HOST} -P${WP_DB_PORT} -u${WP_DB_USER}  -p${WP_DB_PASS} --silent; do
+until mysql -h${WP_DB_HOST} -P${WP_DB_PORT} -u${WP_DB_USER} -p${WP_DB_PASS} --silent; do
     echo "[INFO] waiting for mysqld to be connectable..."
     sleep 2;
 done
@@ -30,10 +30,10 @@ if ! wp core is-installed --allow-root 2>/dev/null ; then
                     ${WP_USER} \
                     ${WP_USER_EMAIL} \
                    --user_pass=${WP_USER_PASSWORD}
-
-    # Create directory for sock-file
-    mkdir -p /var/run/php
 fi
+
+# Create directory for sock-file
+mkdir -p /var/run/php
 
 echo "[INFO] Wordpress started (port -> 9000)"
 /usr/sbin/php-fpm7.3 --nodaemonize
