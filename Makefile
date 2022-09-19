@@ -19,12 +19,15 @@ down:
 	cd $(SRCDIR) && docker-compose down
 
 .PHONY: wordpress
+wordpress:
 	cd $(SRCDIR) && docker-compose exec wordpress bash
 
 .PHONY: nginx
+nginx:
 	cd $(SRCDIR) && docker-compose exec nginx bash
 
 .PHONY: mariadb
+mariadb:
 	cd $(SRCDIR) && docker-compose exec mariadb bash
 
 .PHONY: clean
