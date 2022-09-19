@@ -9,11 +9,16 @@ if [ ! -e '.done' ]; then
       sleep 2
     done
 
-    mysql -e "CREATE DATABASE ${WP_DB_NAME};"
-    mysql -e "CREATE USER '${WP_DB_USER}'@'%' IDENTIFIED BY '${WP_DB_PASS}';"
-    mysql -e "GRANT ALL PRIVILEGES ON ${WP_DB_NAME}.* TO '${WP_DB_USER}'@'%';"
-    mysql -e "FLUSH PRIVILEGES;"
+    queryfile=$(mktemp)
+    cat << EOF > $queryfile
+    CREATE DATABASE ${WP_DB_NAME};
+    CREATE USER '${WP_DB_USER}'@'%' IDENTIFIED BY '${WP_DB_PASS}';
+    GRANT ALL PRIVILEGES ON ${WP_DB_NAME}.* TO '${WP_DB_USER}'@'%';
+    FLUSH PRIVILEGES;
+EOF
+    mysql < $queryfile
     echo "[INFO] database created."
+    rm -rf $queryfile
 
     mysqladmin shutdown
     touch .done
