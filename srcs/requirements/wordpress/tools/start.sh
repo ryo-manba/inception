@@ -1,12 +1,14 @@
 #!/bin/bash
 
-echo "[INFO] Download WordPress"
-wp core download --locale=ja --allow-root
-
 until mysql -h${WP_DB_HOST} -P${WP_DB_PORT} -u${WP_DB_USER}  -p${WP_DB_PASS} --silent; do
     echo "[INFO] waiting for mysqld to be connectable..."
     sleep 2;
 done
+
+# Bash script for checking whether WordPress is installed or not
+if ! wp core is-installed --allow-root; then
+    echo "[INFO] Download WordPress"
+    wp core download --locale=ja --allow-root
 
     echo "[INFO] Generate a config file"
     wp config create --dbname=${WP_DB_NAME} \
