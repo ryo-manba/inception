@@ -3,7 +3,7 @@
 echo "[INFO] Download WordPress"
 wp core download --locale=ja --allow-root
 
-while ! mysql -h${WP_DB_HOST} -P${WP_DB_PORT} -u${WP_DB_USER}  -p${WP_DB_PASS} --silent; do
+until mysql -h${WP_DB_HOST} -P${WP_DB_PORT} -u${WP_DB_USER}  -p${WP_DB_PASS} --silent; do
     echo "[INFO] waiting for mysqld to be connectable..."
     sleep 2;
 done

@@ -5,8 +5,8 @@ if [ ! -e '.done' ]; then
     mysqld_safe &
 
     until mysqladmin ping --silent; do
-      echo "[INFO] waiting for mysqld to be connectable..."
-      sleep 2
+        echo "[INFO] waiting for mysqld to be connectable..."
+        sleep 2
     done
 
     queryfile=$(mktemp)
